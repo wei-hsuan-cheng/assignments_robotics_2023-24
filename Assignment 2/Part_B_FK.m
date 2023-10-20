@@ -1,7 +1,7 @@
 %% B FK
 clear; clc; close all;
 
-addpath('C:\Users\RMML05\Desktop\assignments_robotics_2023-24\ModernRobotics-master\packages\MATLAB\mr')
+addpath('C:\Users\RMML05\assignments_robotics_2023-24\ModernRobotics-master\packages\MATLAB\mr')
 
 load('DHtable');
 

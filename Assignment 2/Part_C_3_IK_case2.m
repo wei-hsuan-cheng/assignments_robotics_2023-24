@@ -1,7 +1,7 @@
 %% C-3 IK-case 2
 clear; clc; close all;
 
-addpath('C:\Users\RMML05\Desktop\assignments_robotics_2023-24\ModernRobotics-master\packages\MATLAB\mr')
+addpath('C:\Users\RMML05\assignments_robotics_2023-24\ModernRobotics-master\packages\MATLAB\mr')
 
 load('DHtable');
 
@@ -51,41 +51,45 @@ else
     R35 = R03.' * R05;
 
     %%%%% Solve for th4, th5 (same as case 1)
-    th4 = atan2(R35(1,3), -R35(2,3)); th4d = th4 * r2d;
-
-    th5 = atan2(R35(3,1), R35(3,2)); th5d = th5 * r2d;
-
-    theta = [th1, th2, th3, th4, th5].';
-
-    %%%%%%%%%% Verify IK using FK
-    T05_test = eye(4);
-    % alpha -> a -> d -> theta
-    for i = 1 : 5
-    	T(:,:,i) = DH2SE3(alpha(i),a(i),d(i),theta(i)); % ^{i-1}_iT
-    	T05_test = T05_test * T(:,:,i);
-    end
-
-    if norm( se3ToVec(MatrixLog6(T05_test)) - se3ToVec(MatrixLog6(T05)) ) < 10^(-3)
-        IK_test = 'succeeded';
+    if abs(R35(3,3) - 0) > 10^(-4)
+        fprintf('Orientation problem: failed.\n');
     else
-        IK_test = 'failed';
-    end
-    fprintf(sprintf('Inverse kinematics: %s.\n',IK_test));
+        fprintf('Orientation problem: succeeded.\n');
+        th4 = atan2(R35(1,3), -R35(2,3)); th4d = th4 * r2d;
+        th5 = atan2(R35(3,1), R35(3,2)); th5d = th5 * r2d;
+        theta = [th1, th2, th3, th4, th5].';
 
-    %%%%%%%%%% Verify constraint IK
-    if th2 + th3 <= 2 * pi || th2 + th3 > pi
-        elbow_config = 'true';
-    else
-        elbow_config = 'false';
-    end
-    fprintf(sprintf('Elbow-up configuration: %s.\n',elbow_config));
+        %%%%%%%%%% Verify IK using FK
+        T05_test = eye(4);
+        % alpha -> a -> d -> theta
+        for i = 1 : 5
+        	T(:,:,i) = DH2SE3(alpha(i),a(i),d(i),theta(i)); % ^{i-1}_iT
+        	T05_test = T05_test * T(:,:,i);
+        end
 
-    if abs(th2 + th3 + th4 - pi) < 10^(-3)
-        tip_downward = 'true';
-    else
-        tip_downward = 'false';
+        if norm( se3ToVec(MatrixLog6(T05_test)) - se3ToVec(MatrixLog6(T05)) ) < 10^(-3)
+            IK_test = 'succeeded';
+        else
+            IK_test = 'failed';
+        end
+        fprintf(sprintf('Inverse kinematics: %s.\n',IK_test));
+
+        %%%%%%%%%% Verify constrained IK
+        if th2 + th3 <= 2 * pi || th2 + th3 > pi
+            elbow_config = 'true';
+        else
+            elbow_config = 'false';
+        end
+        fprintf(sprintf('Elbow-up configuration: %s.\n',elbow_config));
+
+        if abs(th2 + th3 + th4 - pi) < 10^(-3)
+            tip_downward = 'true';
+        else
+            tip_downward = 'false';
+        end
+        fprintf(sprintf('Gripper tip vertically downward: %s.\n',tip_downward));
+
     end
-    fprintf(sprintf('Gripper tip vertically downward: %s.\n',tip_downward));
 
 end
 
