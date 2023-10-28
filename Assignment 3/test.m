@@ -1,3 +1,6 @@
-% Test for vscode-github connection
 
-% Test for creating new branch
+
+% Test for creating new one
+
+% Creating new lines
+% More new lines
