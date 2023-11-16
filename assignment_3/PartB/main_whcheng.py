@@ -49,8 +49,8 @@ if __name__ == "__main__":
         print("\n ==== Enter \"exit\" to end the program ====\n")
         fileName = input("Please enter the file name : ")
 
-        # Shut down the program if received "exit()"
-        if fileName == "exit()":
+        # Shut down the program if received "exit"
+        if fileName == "exit":
             break
 
         input_img = cv2.imread('./images/' + fileName + '.jpg')
