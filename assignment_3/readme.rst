@@ -1,4 +1,4 @@
-Assignment 3 is a team assignment.
+``assignment_3`` is a team assignment.
 
 The files ``camera_calib.py`` in part a and ``main.py`` in part b are originally provided by `eps46656 <https://github.com/eps46656>`_/`Robotics-AssignmentIII <https://github.com/eps46656/Robotics-AssignmentIII>`_.
 
