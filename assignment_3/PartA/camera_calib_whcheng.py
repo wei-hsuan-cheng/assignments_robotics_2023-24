@@ -96,7 +96,6 @@ Undistort the images using cv.undistort();
 num = 0
 images = glob.glob(path2)
 for fname in images:    
-    num += 1
     img = cv2.imread(fname)
     # img = cv2.resize(img, (532, 300), interpolation=cv2.INTER_CUBIC)
     h, w = img.shape[:2]
@@ -111,6 +110,7 @@ for fname in images:
     cv2.imshow("undistorted img", dst)
     cv2.waitKey(0)
     cv2.imwrite(path_out.format(num), dst)
+    num += 1
 
 # mean re-projection error
 mean_error = 0
