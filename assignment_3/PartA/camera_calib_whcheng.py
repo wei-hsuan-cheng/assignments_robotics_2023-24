@@ -20,6 +20,8 @@ import glob
 # one square: 2.25cm * 2.25cm
 # set CHECKBOARD size with the number of corners
 CHECKERBOARD = (6, 8)
+
+# Termination criteria for optimization
 criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 
 # Image path (only chekerboard):
@@ -31,9 +33,9 @@ path_out = './Camera_Calib/frames_undistorted_whcheng/undistorted_{}.png'
 
 
 # Creating vector to store vectors of 3D points for each checkerboard image
-objpoints = []
+objpoints = [] # 3d point in real world space
 # Creating vector to store vectors of 2D points for each checkerboard image
-imgpoints = []
+imgpoints = [] # 2d points in image plane
 
 
 # Defining the world coordinates for 3D points
@@ -79,9 +81,9 @@ passing the value of known 3D points (objpoints)
 and corresponding pixel coordinates of the 
 detected corners (imgpoints)
 """
+# Finding intrinsic matrix (camera matrix)
 ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
-
-print("Camera matrix : \n")
+print("Camera (intrinsic) matrix : \n")
 print(mtx)
 print("dist : \n")
 print(dist)
@@ -89,6 +91,12 @@ print("rvecs : \n")
 print(rvecs)
 print("tvecs : \n")
 print(tvecs)
+
+# # Finding camera extrinsic matrix
+# R = cv2.Rodrigues(rvecs[num-1])
+# ext = np.hstack((R[0], tvecs[num-1])) # num is each frame index
+# print("Extrinsic matrix : \n")
+# print(ext)
 
 """
 Undistort the images using cv.undistort();
