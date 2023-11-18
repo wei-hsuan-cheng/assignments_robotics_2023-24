@@ -61,7 +61,6 @@ def main():
     path2 = f"{DIR}/Camera_Calib/frames_extra/frame-*.png"
 
     filenames = glob.glob(path)
-
     imgs = [cv.imread(filename) for filename in filenames]
 
     camera_mat, camera_distort = CameraCalib(imgs)
@@ -71,6 +70,9 @@ def main():
 
     np.save(f"{DIR}/camera_params.npy", {"camera_mat": camera_mat,
                                          "camera_distort": camera_distort})
+
+    filenames = glob.glob(path2)
+    imgs = [cv.imread(filename) for filename in filenames]
 
     undistorted_imgs = UndistortImages(imgs, camera_mat, camera_distort)
 

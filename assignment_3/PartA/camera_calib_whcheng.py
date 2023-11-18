@@ -17,7 +17,7 @@ import glob
 # Defining the dimensions of checkerboard
 # rows: 7 square
 # cols: 9 square
-# one square: 2.25cm * 2.25cm
+# one square: 22.5 [mm] * 22.5 [mm] (Square size doesn't affect the calibration result if there's no need for knowing the real-world scale!)
 # set CHECKBOARD size with the number of corners
 CHECKERBOARD = (6, 8)
 
