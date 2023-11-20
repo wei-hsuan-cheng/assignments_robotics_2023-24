@@ -95,7 +95,7 @@ def DrawLine(img, center, phi, color):
 
 def main():
     fileName = input("Enter file name (e.g. er7-1): ")
-    img_path = './images/' + fileName + '.jpg'
+    img_path = 'images/' + fileName + '.jpg'
 
     if (fileName == 'er7-1') or (fileName == 'er7-2') or (fileName == 'er7-3') or (fileName == 'er7-4'):
         img = cv.cvtColor(cv.imread(img_path), cv.COLOR_BGR2RGB)
